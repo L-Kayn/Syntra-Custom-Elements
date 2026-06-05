@@ -1,0 +1,78 @@
+{# ============================================================
+   HOVER CARD — Breakdance Custom Element
+   Controls used:
+     content.link.card_link        (Link)
+     content.image.image           (Image)
+     content.image.image_alt       (Text — alt fallback)
+     content.image.show_icon       (Toggle)
+     content.image.icon            (Icon)
+     content.image.overlay         (Toggle — gradient on/off)
+     content.captions.eyebrow      (Text)
+     content.captions.heading      (Text)
+     content.captions.description  (Rich Text)
+     content.captions.button_text  (Text)
+============================================================ #}
+
+{# Local variables — kept at top so they're easy to edit #}
+{% set alt = content.image.image_alt ?: 'Card image' %}
+{% set lazyLoad = true %}
+
+<div class="hv-card-wrapper">
+
+  {# 1. LINK — wraps the entire card #}
+  {{ macros.linkStart(content.link.card_link) }}
+
+    <div class="hv-card-link">
+      <div class="hv-card">
+
+        {# 2. IMAGE #}
+        <div class="hv-card-image-wrapper">
+          {{ macros.image(content.image.image, content.content.size, alt, lazyLoad) }}
+        </div>
+
+        {# 3. OVERLAY — only renders when toggle is on #}
+        {% if content.image.overlay %}
+          <div class="hv-card-overlay"></div>
+        {% endif %}
+
+{# 4. ICON — only renders when toggle is on #}
+{% if content.icon.show_icon %}
+  <div class="hv-card-icon" aria-hidden="true">
+    {{ content.icon.icon.svgCode }}
+  </div>
+{% endif %}
+
+
+        {# 5. CONTENT BLOCK #}
+        <div class="hv-card-content">
+
+          {# 5a. Subtitle / eyebrow #}
+          <span class="hv-subtitle">
+            {{ content.captions.eyebrow ?: 'Subtitle' }}
+          </span>
+
+          {# 5b. Title / heading #}
+          <h3 class="hv-title">
+            {{ content.captions.heading ?: 'Card Title' }}
+          </h3>
+
+          {# 5c. Description — revealed on hover #}
+          <div class="hv-hover-reveal">
+            <div class="hv-description">
+              {{ content.captions.description ?: 'Add a short description here to appear on hover.' }}
+            </div>
+          </div>
+
+          {# 5d. Button text #}
+          <span class="hv-button">
+            {{ content.captions.button_text ?: 'Learn More' }}
+          </span>
+
+        </div>
+
+      </div>
+    </div>
+
+  {{ macros.linkEnd() }}
+
+</div>

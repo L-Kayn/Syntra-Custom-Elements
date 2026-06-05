@@ -1,0 +1,160 @@
+/* ============================================================
+   HOVER CARD — TWIG CSS (instance-specific, control-driven)
+   Every value here is hooked to a Style tab control.
+============================================================ */
+
+%%SELECTOR%% .hv-card {
+  width: {{ design.size.width.style ?: '100%' }};
+  height: {{ design.size.height.style ?: '550px' }};
+  border-style: solid;
+  border-width: {{ design.effects.border_width.style ?: '0px' }};
+  {{ macros.borderColor(design.effects.border_color) }}
+
+  border-radius: 12px;
+  background-color: transparent;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10);
+}
+
+%%SELECTOR%% .hv-card-link:hover .hv-card {
+  {{ macros.borderColor(design.effects.border_color_hover) }}
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Transition */
+%%SELECTOR%% .hv-card,
+%%SELECTOR%% .hv-card-overlay,
+%%SELECTOR%% .hv-card-image-wrapper img,
+%%SELECTOR%% .hv-button {
+  transition-duration: {{ design.effects.transition_duration.style ?: '0.5s' }};
+  transition-timing-function: {{ design.effects.transition_easing ?: 'ease' }};
+}
+
+%%SELECTOR%% .hv-card {
+  transition-property: transform, box-shadow, border-color, border-width;
+}
+
+%%SELECTOR%% .hv-card-image-wrapper {
+  background-color: #fff;
+}
+
+/* Overlay */
+%%SELECTOR%% .hv-card-overlay {
+  {{ macros.backgroundColor(design.overlay.overlay_color) }}
+  opacity: {{ design.overlay.opacity ?: '0.7' }};
+}
+
+%%SELECTOR%% .hv-card-link:hover .hv-card-overlay {
+  {{ macros.backgroundColor(design.overlay.overlay_color_hover) }}
+}
+
+/* Image effects */
+{% if design.effects.image_effect == 'c4-image-zoom-in' %}
+  %%SELECTOR%% .hv-card-link:hover .hv-card-image-wrapper img {
+    transform: scale(1.1);
+  }
+
+{% elseif design.effects.image_effect == 'c4-image-zoom-out' %}
+  %%SELECTOR%% .hv-card-image-wrapper img {
+    transform: scale(1.1);
+  }
+
+  %%SELECTOR%% .hv-card-link:hover .hv-card-image-wrapper img {
+    transform: scale(1);
+  }
+
+{% elseif design.effects.image_effect == 'c4-image-pan-up' %}
+  %%SELECTOR%% .hv-card-image-wrapper img {
+    transform: scale(1.15);
+  }
+
+  %%SELECTOR%% .hv-card-link:hover .hv-card-image-wrapper img {
+    transform: scale(1.15) translateY(-5%);
+  }
+
+{% elseif design.effects.image_effect == 'c4-image-pan-down' %}
+  %%SELECTOR%% .hv-card-image-wrapper img {
+    transform: scale(1.15);
+  }
+
+  %%SELECTOR%% .hv-card-link:hover .hv-card-image-wrapper img {
+    transform: scale(1.15) translateY(5%);
+  }
+
+{% endif %}
+
+/* Icon */
+%%SELECTOR%% .hv-card-icon {
+  top: 24px;
+  right: 24px;
+  width: {{ design.icon.icon_background_size.style ?: '48px' }};
+  height: {{ design.icon.icon_background_size.style ?: '48px' }};
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  background: rgba(255, 255, 255, 0.20);
+  color: #fff;
+  font-size: {{ design.icon.icon_size.style ?: '23px' }};
+
+}
+
+/* Content */
+%%SELECTOR%% .hv-card-content {
+  padding: 30px;
+  {{ macros.spacing_padding_all(design.spacing.container_padding_) }}
+}
+
+/* Typography */
+%%SELECTOR%% .hv-subtitle {
+  margin-top: 0;
+  margin-bottom: 10px;
+  {{ macros.spacing_margin_y(design.spacing.gap) }}
+  {{ macros.typography(design.typography.subtitle, globalSettings) }}
+}
+
+%%SELECTOR%% .hv-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  {{ macros.spacing_margin_y(design.spacing.gap) }}
+  {{ macros.typography(design.typography.heading_, globalSettings) }}
+}
+
+%%SELECTOR%% .hv-description {
+  margin-top: 0;
+  margin-bottom: 0;
+  {{ macros.spacing_margin_y(design.spacing.gap) }}
+  {{ macros.typography(design.typography.description, globalSettings) }}
+}
+
+
+/* Button */
+%%SELECTOR%% .hv-button {
+  padding: 12px 24px;
+  border-radius: {{ design.button.border_radius.style ?: '2px' }};
+  background-color: {{ design.button.color ?: '#fff' }};
+  {{ macros.typography(design.typography.button_text, globalSettings) }}
+}
+
+%%SELECTOR%% .hv-card-link:hover .hv-button {
+  background-color: {{ design.button.color_hover ?: '#D9A441' }};
+}
+
+/* Mobile overrides */
+@media (max-width: 479px) {
+  %%SELECTOR%% .hv-card-content {
+    padding: 22px;
+  }
+
+  %%SELECTOR%% .hv-title {
+    margin-bottom: 10px;
+  }
+
+  %%SELECTOR%% .hv-button {
+    padding: 10px 18px;
+  }
+
+  %%SELECTOR%% .hv-card-icon {
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+}
