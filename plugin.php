@@ -4,7 +4,7 @@
  * Plugin Name: Syntra Custom Elements
  * Plugin URI: https://studiosyntra.com.au/
  * Description: Complex Blocks Added to breakdance
- * Author: Studio Syntra
+ * Author: Breakdance
  * Author URI: https://Studiosyntra.com.au/
  * License: GPLv2
  * Text Domain: StudioSyntra
